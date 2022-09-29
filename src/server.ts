@@ -6,11 +6,13 @@ import { convertHoursStringToMinutes } from './utils/convert-hour-string-to-minu
 import { convertMinutesToHourString } from './utils/convert-minutes-to-hours-string';
 
 const app = express();
+//NUNCA COLOQUE ESTA MERDA DEPOIS!!!!!!!!
+// NUNCA COLOQUE ESTA MERDA DEPOIS!!!!!!!!
+// NUNCA COLOQUE ESTA MERDA DEPOIS!!!!!!!!
+// NUNCA COLOQUE ESTA MERDA DEPOIS!!!!!!!!
+app.use(cors());
 
 app.use(express.json());
-app.use(cors({
-  
-}));
 
 const prisma = new PrismaClient();
 
@@ -32,13 +34,17 @@ app.post('/games/:id/ads' , async (request, response) => {
   const gameId = request.params.id;
   const body = request.body;
 
+  console.log('cheguei assim:', body);
+  // const weeksDaysTest = body.weeksDays.join(",");
+  // console.log(weeksDaysTest);
+
   const ad = await prisma.ad.create({
     data: {
       gameId,
       name: body.name,
       yearsPlaying: body.yearsPlaying,
       discord: body.discord,
-      weeksDays: body.weeksDays.join(','),
+      weeksDays: body.weeksDays.join(),
       hourStart: convertHoursStringToMinutes(body.hourStart),
       hourEnd: convertHoursStringToMinutes(body.hourEnd),
       useVoiceChannel: body.useVoiceChannel
